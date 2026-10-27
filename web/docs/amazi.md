@@ -1,12 +1,14 @@
 # Amazi application setup
 
-This repository is one React/Vite application at its root: `package.json`, `Dockerfile`, `src/`, and `public/` are siblings. It does not need a backend or an additional project manifest. Application registration and runtime settings belong to Amazi, outside Git.
+This repository contains one standalone React/Vite application in `web/`. Its package manifest, lockfile, Dockerfile, source, assets, tests, and app documentation stay together inside that directory. No build or runtime file is required from the repository root. Application registration and runtime settings belong to Amazi, outside Git.
 
-When the repository is the complete project workspace, register this application with source path `.`. When importing into an existing project, create an empty application and copy these files into the source path Amazi allocates; do not replace the project workspace root or another application's files. Connecting GitHub synchronizes the workspace tree and does not discover or register applications automatically. Preserve the registered source path when synchronizing later changes.
+The example repository uses `web/` as its application directory. To import, create an `empty_application` and copy only the contents of the template's `web/` into the application source path Amazi returns. Do not copy the repository wrapper into that directory or replace other applications. Preserve the allocated source path; its name does not have to be `web`. GitHub synchronization copies the workspace tree and does not discover or register applications automatically.
 
-Forma's public template uses `main` as its default branch. Keep an existing Amazi connection, or import the source from `main` into a new application's allocated directory. Amazi's initial GitHub connection flow requires a repository without `main`; use a separate repository for a new synchronization connection. Source compatibility does not change that connection requirement.
+Forma's public template uses `main` as its default branch. Keep an existing Amazi connection, or import the application source from `main` into a new application's allocated directory. Amazi's initial GitHub connection flow requires a repository without `main`; use a separate repository for a new synchronization connection. Source compatibility does not change that connection requirement.
 
-Configure the application with:
+Configure the application with the settings below. Commands run inside its registered source path. Production build context `application` uses only that directory and its Dockerfile (`web/Dockerfile` in this repository).
+
+To keep the exact `web` name in a new project, configure the empty allocated application's source path before copying, only while the target directory does not already exist. Changing `sourcePath` moves its allocated directory and rejects an existing target; it does not register a populated directory. Keep the returned application catalog authoritative.
 
 | Setting                         | Value                                                                |
 | ------------------------------- | -------------------------------------------------------------------- |
@@ -25,3 +27,12 @@ The runtime tool names are Amazi catalog identifiers. Corepack uses this reposit
 The Dockerfile follows Amazi's `development`, `build`, and `production` stages, accepts `AMAZI_RUNTIME_BASE_IMAGE`, and builds using the committed lockfile. The final non-root image serves `dist` with SPA fallback on `0.0.0.0:$PORT`. The optional `application_environment` build secret is loaded only for the build and removed afterward. Only variables intentionally prefixed `VITE_` belong in browser code; this app requires none.
 
 The local Python launcher is a convenience for the desktop and is not the production process. Scene storage remains in the browser; use JSON export to transfer a scene between the desktop and an Amazi URL.
+
+From the repository root, verify the independent build context with:
+
+```bash
+docker build -t forma-studio ./web
+docker run --rm -e PORT=10000 -p 127.0.0.1:4401:10000 forma-studio
+```
+
+After copying `web/` elsewhere, run the same build from that application directory with `docker build -t forma-studio .`.

@@ -2,17 +2,17 @@
 
 Use this skill when a website needs an interactive 3D preview of a house, room, furniture, product, construction concept, or assembly: orbiting, selecting parts, changing finishes or dimensions, arranging objects, or inspecting a cutaway. Build actual scene geometry and connect the controls to it. A rotating image or prerecorded video does not support arbitrary viewpoints and object editing.
 
+Inspect the example repository's current README and directory structure to locate its standalone application, architecture notes, extension guidance, and runtime setup. Discover paths from the checked-out source; do not assume a fixed branch, application directory name, or module layout.
+
 ## Working example
 
-- Source: [Forma Studio](https://github.com/Egormity/forma-studio), a public template maintained on `main`.
+- Source: [Forma Studio](https://github.com/Egormity/forma-studio), a public reference repository.
 - The public production preview link will be added later. Until then, use the source repository as the working reference; do not present the authenticated project page as a public preview.
 - Amazi project: [Forma Studio project](https://app.amazi.pro/projects/1ecb3d86-b1cb-4513-ba8d-cbee2d9794c1). This is the project management page, not the public scene preview.
 
 Study the example's behavior and reusable boundaries; adapt its subject, layout, visual style, and object limits to the current task. The desktop launcher and Python server belong to that example's local packaging. An Amazi website should use its existing web build and deployment.
 
-Read [architecture](https://github.com/Egormity/forma-studio/blob/main/docs/architecture.md), [extension guidance](https://github.com/Egormity/forma-studio/blob/main/docs/extending.md) and [Amazi setup](https://github.com/Egormity/forma-studio/blob/main/docs/amazi.md) as needed.
-
-Useful source paths: `src/scene/Viewport.tsx`, `SceneCamera.tsx`, `MoveControls.tsx`, `FurnitureObject.tsx`, `Floor.tsx`; `src/domain/scene.ts` and `serialization.ts`; `src/state/useStudio.ts`; and `e2e/interaction.spec.ts`. Forma demonstrates procedural geometry, room boundaries, undo/redo, local persistence, and JSON exchange. It does not implement furniture collision detection, CAD editing, or structural calculations.
+Inspect the current implementation for scene rendering, object interaction, domain constraints, editor state, persistence, and behavioral checks. Use its demonstrated capabilities as reference evidence rather than assuming every advanced system described below is already present.
 
 ## Development flow
 
@@ -62,7 +62,7 @@ Useful source paths: `src/scene/Viewport.tsx`, `SceneCamera.tsx`, `MoveControls.
 
 For a scene that can become still, start with `frameloop="demand"`. Call `invalidate()` after imperative camera or mesh changes; maintain updates while damping or animation is active, then let rendering stop. Drei controls handle this integration for supported controls. `invalidate()` requests a frame rather than rendering synchronously. [React Three Fiber performance guidance](https://r3f.docs.pmnd.rs/advanced/scaling-performance)
 
-- Use a bounded pixel ratio; Forma starts at `dpr={[1, 1.5]}`. Profile the actual viewport/device before raising resolution or adding effects. Large displays and high-DPI screens can multiply the rendering cost.
+- Use a bounded pixel ratio, for example `dpr={[1, 1.5]}` as an initial profiling baseline. Profile the actual viewport/device before raising resolution or adding effects. Large displays and high-DPI screens can multiply the rendering cost.
 - Instance repeated identical geometry such as floor planks, tiles, or posts. Reuse compatible geometries/materials, memoize costly generation, and avoid React state updates or allocations for every animation frame.
 - Limit shadow-casting lights, shadow resolution, material complexity, and transparent layers. Load only the models needed for the current scene; add lower-detail variants when measured scene complexity warrants them.
 - Dispose owned textures, geometries, materials, render targets, and controls when their lifetime ends; respect resources shared by several objects. Removing a mesh alone does not release its GPU resources. [Three.js resource cleanup](https://threejs.org/manual/pages/how-to-dispose-of-objects.html)
@@ -85,7 +85,7 @@ Use [Rapier bodies](https://rapier.rs/docs/user_guides/javascript/rigid_bodies/)
 
 ## Amazi application structure
 
-Keep package files, lockfile, Dockerfile, source and assets together at the registered application's root. If importing this repository, use Amazi's empty application and its returned source path; GitHub synchronization does not register an app. Honor injected `PORT`, bind to `0.0.0.0`, retain the pinned package manager and Node 22 compatibility, and preserve Vite host checks. Actual production startup belongs to the Dockerfile. Keep readable source formatted; build output can be optimized. Browser-only scenes need no backend or persistent volume unless the requested product adds shared data or server computation. See [Amazi applications](https://docs.amazi.pro/en/applications) and [publishing](https://docs.amazi.pro/en/publishing-and-domains).
+Keep each app in its own standalone directory inside the project repository, with its package files, lockfile, Dockerfile, source, assets, and tests. Inspect the reference repository to find the application subtree. For import, create an empty application and copy only that subtree's contents into the source path Amazi returns; do not copy the repository wrapper or replace other apps. Keep production build context as `application` and use the actual registered source path. A source-path change moves the allocated directory; it does not register an existing populated folder. GitHub synchronization does not register an app. Honor injected `PORT`, bind to `0.0.0.0`, retain the pinned package manager and Node 22 compatibility, and preserve Vite host checks. Actual production startup belongs to the Dockerfile. Keep readable source formatted; build output can be optimized. Browser-only scenes need no backend or persistent volume unless the requested product adds shared data or server computation. See [Amazi applications](https://docs.amazi.pro/en/applications) and [publishing](https://docs.amazi.pro/en/publishing-and-domains).
 
 ## Verify and deliver
 
