@@ -2,6 +2,8 @@
 
 A local, interactive 3D house and furniture studio. Explore a furnished space, change its dimensions and finishes, and arrange furniture directly in the scene.
 
+The public template is maintained on `main` in [Egormity/forma-studio](https://github.com/Egormity/forma-studio).
+
 This is a parametric visual demonstration for exploring the experience of a construction or furniture configurator. Measurements and geometry are illustrative; it is not a CAD, structural-engineering, or construction-documentation tool.
 
 ## Open the app
@@ -13,7 +15,7 @@ The built app needs **Python 3** and a browser with WebGL support. Node.js and p
 To launch from a terminal:
 
 ```bash
-cd /home/egormity/Desktop/forma-studio
+cd /home/egormity/Desktop/egormity-repos/Egormity/forma-studio
 python3 scripts/launch.py
 ```
 
@@ -44,18 +46,21 @@ The launcher's process ID and startup log live in `~/.cache/forma-studio` (or `$
 
 Furniture stays within the room boundary, including after rotation or resizing. Dragging snaps to 25 cm; the property fields allow finer placement. The scene supports up to 40 pieces. Objects can overlap one another; this demonstration does not calculate furniture collisions. Keyboard shortcuts: **Ctrl/Cmd+Z** to undo, **Ctrl/Cmd+Shift+Z** to redo, **Escape** to clear selection, and **Delete** to remove the selected piece.
 
-The current scene is saved automatically in your browser's local storage. It is specific to that browser profile and address; clearing browser data removes it. Export JSON for a portable backup. There is no account, cloud service, or sign-in. All house and furniture geometry is created by the app; no external 3D assets are downloaded.
+The current scene is saved automatically in your browser's local storage. An unreadable existing save remains intact until a deliberate edit; before replacement the app preserves its raw content in a recovery key. If saving is blocked, export JSON to keep the current session. It is specific to that browser profile and address; clearing browser data removes it. Export JSON for a portable backup. There is no account, cloud service, or sign-in. All house and furniture geometry is created by the app; no external 3D assets are downloaded.
 
 ## Develop or rebuild
 
-Use **Node.js 24** and **pnpm 11 or newer**:
+Use **Node.js 22.12 or newer** and the pinned **pnpm 11.7.0** through Corepack:
 
 ```bash
-pnpm install
+corepack enable
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Development runs at `http://127.0.0.1:4398`. To produce the files used by the desktop app:
+Development runs at `http://127.0.0.1:4398` and listens on all interfaces so Amazi's proxy can reach it. `PORT` overrides the development and Vite preview ports; without it, they remain 4398 and 4399. A `.env` file is optional; see `.env.example`. Invalid ports fail immediately instead of selecting another port. The Python desktop launcher remains loopback-only on 4399.
+
+To produce the files used by the desktop app:
 
 ```bash
 pnpm build
@@ -66,6 +71,8 @@ Refresh the app after rebuilding. The development address and desktop address ha
 Run the application and local-server checks:
 
 ```bash
+pnpm format:check
+pnpm typecheck
 pnpm test
 python3 -m unittest discover -s scripts -p 'test_*.py'
 ```
@@ -79,6 +86,20 @@ python3 scripts/serve.py --port 4399
 ```
 
 Stop that foreground process with `Ctrl+C`. The launcher's `--stop` command stops only a server that the launcher itself started.
+
+## Reuse as an Amazi template
+
+- [Architecture](docs/architecture.md) explains document, geometry, editor, persistence and rendering ownership.
+- [Extension guide](docs/extending.md) covers new objects, collision queries, optional physics and effects.
+- [Amazi setup](docs/amazi.md) owns source-path registration, runtime ports and production packaging.
+- [Interactive 3D skill](skill/agent-content.md) describes development flow and advanced visualization choices.
+
+The skill's localized Admin metadata is in `skill/catalog.json`; custom skills receive their UUID in Amazi.
+The editor implements procedural geometry and bounded room placement. Physics, gravity and particles
+are documented extension paths, not hidden capabilities of this example.
+
+Source is formatted with `pnpm format`; check it with `pnpm format:check`. Production assets may be
+minified by the build, while files edited in Amazi remain readable.
 
 ## Implementation and references
 

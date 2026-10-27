@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('selects and drags furniture on the canvas, restores boundary drops, and stops rendering at rest', async ({ page }) => {
+test('selects and drags furniture on the canvas, restores boundary drops, and stops rendering at rest', async ({
+  page,
+}) => {
   await page.addInitScript(() => {
     const tracked = window as unknown as { formaClearCount: number };
     tracked.formaClearCount = 0;
@@ -17,7 +19,14 @@ test('selects and drags furniture on the canvas, restores boundary drops, and st
   await page.waitForTimeout(700);
   const area = (await canvas.boundingBox())!;
   const point = (x: number, y: number) => ({ x: area.x + x, y: area.y + y });
-  const sofaPosition = () => page.evaluate(() => JSON.parse(localStorage.getItem('forma-studio.scene.v1')!).furniture[0].position as [number, number]);
+  const sofaPosition = () =>
+    page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem('forma-studio.scene.v1')!).furniture[0].position as [
+          number,
+          number,
+        ],
+    );
 
   // Screen coordinates select the starter sofa in the fixed 1600×1060 top view.
   await page.keyboard.press('Escape');
@@ -70,12 +79,18 @@ test('selects and drags furniture on the canvas, restores boundary drops, and st
   await page.mouse.move(20, 100);
   await page.waitForTimeout(2500);
   expect((await canvas.screenshot()).equals(beforeOrbit)).toBe(false);
-  const count = () => page.evaluate(() => (window as unknown as { formaClearCount: number }).formaClearCount);
+  const count = () =>
+    page.evaluate(() => (window as unknown as { formaClearCount: number }).formaClearCount);
   expect(await count()).toBeGreaterThan(0);
   // Software WebGL can take longer to finish the camera's damping frames.
-  await expect.poll(async () => {
-    const before = await count();
-    await page.waitForTimeout(600);
-    return (await count()) - before;
-  }, { timeout: 10_000 }).toBe(0);
+  await expect
+    .poll(
+      async () => {
+        const before = await count();
+        await page.waitForTimeout(600);
+        return (await count()) - before;
+      },
+      { timeout: 10_000 },
+    )
+    .toBe(0);
 });

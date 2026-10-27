@@ -1,0 +1,219 @@
+@media (min-width: 1600px) {
+  .workspace-grid {
+    grid-template-columns: 265px minmax(300px, 1fr) 275px;
+    gap: 22px;
+  }
+  .studio-main {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+}
+@media (max-width: 1250px) {
+  .studio-header {
+    padding: 0 24px;
+    gap: 20px;
+    height: 72px;
+  }
+  .project-type {
+    display: none;
+  }
+  .studio-main {
+    padding: 28px 23px 0;
+  }
+  .workspace-grid {
+    grid-template-columns: 218px minmax(280px, 1fr) 224px;
+    gap: 13px;
+    min-height: 650px;
+  }
+  .viewport-hint {
+    display: none;
+  }
+  .camera-controls button {
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+  .live-badge {
+    display: none;
+  }
+  .scene-caption {
+    left: 22px;
+  }
+}
+@media (max-width: 1050px) {
+  .save-status {
+    display: none;
+  }
+  .header-actions {
+    margin-left: auto;
+  }
+  .workspace-grid {
+    height: auto;
+    max-height: none;
+    grid-template-columns: 235px minmax(300px, 1fr);
+  }
+  .design-panel {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 650px;
+  }
+  .viewport-panel {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 650px;
+  }
+  .inspector-panel {
+    grid-column: 1 / -1;
+  }
+  .inspector-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 24px;
+  }
+  .inspector-body .selected-summary {
+    grid-column: 1;
+  }
+  .inspector-body .panel-section {
+    margin: 0 0 18px;
+    padding: 0;
+    border: 0;
+  }
+  .inspector-body .object-actions {
+    align-self: start;
+    margin-top: 0;
+  }
+  .inspector-note {
+    display: none !important;
+  }
+  .inspector-panel .panel-heading {
+    padding-bottom: 15px;
+  }
+  .empty-inspector {
+    min-height: 200px !important;
+  }
+}
+@media (max-width: 700px) {
+  .studio-header {
+    padding: 0 17px;
+    height: 66px;
+    gap: 15px;
+  }
+  .brand-symbol {
+    transform: scale(0.85);
+    transform-origin: left center;
+    margin-right: -3px;
+  }
+  .brand-name {
+    font-size: 15px;
+  }
+  .brand-name > span {
+    font-size: 5px;
+  }
+  .header-divider,
+  .project-name {
+    display: none;
+  }
+  .header-actions {
+    gap: 3px;
+  }
+  .header-actions .button-label-desktop {
+    display: none;
+  }
+  .header-actions .button-label-mobile {
+    display: inline;
+  }
+  .header-actions .button {
+    padding: 8px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  .history-actions {
+    padding-right: 6px;
+    gap: 0;
+    margin-right: 3px;
+  }
+  .history-actions .icon-button {
+    width: 27px;
+  }
+  .studio-main {
+    padding: 26px 15px 0;
+  }
+  .workspace-intro {
+    padding-bottom: 23px;
+    align-items: start;
+  }
+  .workspace-intro h1 {
+    font-size: 28px;
+    max-width: 290px;
+  }
+  .workspace-intro p {
+    max-width: 230px;
+    font-size: 12px;
+  }
+  .help-button {
+    font-size: 0;
+    margin-top: 28px;
+    padding: 8px;
+    border: 1px solid #e3e6da;
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+  }
+  .help-button svg {
+    flex-shrink: 0;
+  }
+  .help-button svg:last-child {
+    display: none;
+  }
+  .workspace-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .viewport-panel {
+    order: -1;
+    min-height: 480px;
+    height: 65dvh;
+    max-height: 650px;
+    flex: none;
+  }
+  .design-panel {
+    min-height: auto;
+  }
+  .panel-body {
+    overflow: visible;
+  }
+  .design-panel .panel-body {
+    display: block;
+  }
+  .design-panel .room-diagram {
+    height: 115px;
+  }
+  .design-panel .floor-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .inspector-body {
+    display: block;
+  }
+  .inspector-body .panel-section {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .studio-footer {
+    gap: 20px;
+    font-size: 11px;
+  }
+  .studio-footer > span:last-child {
+    text-align: right;
+    max-width: 150px;
+    line-height: 1.6;
+  }
+  .scene-caption > strong {
+    font-size: 16px;
+  }
+  .scene-caption {
+    top: 81px;
+  }
+  .compass {
+    display: none;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "icon": "box",
+  "userTitleEn": "Interactive 3D scenes",
+  "userTitleRu": "Интерактивные 3D-сцены",
+  "userTitleEs": "Escenas 3D interactivas",
+  "userDescriptionEn": "Build interactive 3D visualizations, editors and configurators. Includes a reusable example, clear development stages, geometry and persistence, plus guidance for collisions, gravity, constraints, particles and performance when the workflow needs them.",
+  "userDescriptionRu": "Создавайте интерактивные 3D-визуализации, редакторы и конфигураторы. Пример для повторного использования, этапы разработки, геометрия и сохранение, а также коллизии, гравитация, ограничения, частицы и оптимизация для сложных задач.",
+  "userDescriptionEs": "Crea visualizaciones, editores y configuradores 3D interactivos. Incluye un ejemplo reutilizable, etapas de desarrollo, geometría y persistencia, además de colisiones, gravedad, restricciones, partículas y rendimiento según el caso.",
+  "agentDescription": "Use for real interactive 3D viewers and configurators: orbitable houses or products, room planning, furniture placement, material variants, dimensional editing, and construction previews. Includes a tested Forma Studio reference and guidance for geometry, controls, rendering, persistence, and verification. Also use for complex visualization workflows involving collision/clearance queries, gravity, rigid bodies, constraints, sensors, particles, animated assemblies or simulations. Choose the appropriate numerical model and renderer; distinguish implemented reference features from extension guidance and keep authoring data separate from transient simulation. Includes a staged development and validation flow."
+}
