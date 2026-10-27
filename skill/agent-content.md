@@ -7,7 +7,7 @@ Inspect the example repository's current README and directory structure to locat
 ## Working example
 
 - Source: [Forma Studio](https://github.com/Egormity/forma-studio), a public reference repository.
-- The public production preview link will be added later. Until then, use the source repository as the working reference; do not present the authenticated project page as a public preview.
+- Production preview: [Forma Studio — 3D composition](https://1ecb3d86-b1cb-4513-ba8d-cbee2d9794c1--9b903a0a.projects.amazi.pro/).
 - Amazi project: [Forma Studio project](https://app.amazi.pro/projects/1ecb3d86-b1cb-4513-ba8d-cbee2d9794c1). This is the project management page, not the public scene preview.
 
 Study the example's behavior and reusable boundaries; adapt its subject, layout, visual style, and object limits to the current task. The desktop launcher and Python server belong to that example's local packaging. An Amazi website should use its existing web build and deployment.
