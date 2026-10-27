@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => {
     base: './',
     server: { host: '0.0.0.0', port: port ?? 4398, strictPort: true },
     preview: { host: '0.0.0.0', port: port ?? 4399, strictPort: true },
-    build: { rollupOptions: { output: { manualChunks: { three: ['three'] } } }, chunkSizeWarningLimit: 900 },
+    build: {
+      rollupOptions: { output: { manualChunks: { three: ['three'] } } },
+      chunkSizeWarningLimit: 900,
+    },
   };
 });

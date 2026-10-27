@@ -1,18 +1,25 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 
-const saved = (page: Page) => page.evaluate(() => JSON.parse(localStorage.getItem('forma-studio.scene.v1')!));
+const saved = (page: Page) =>
+  page.evaluate(() => JSON.parse(localStorage.getItem('forma-studio.scene.v1')!));
 const edit = async (page: Page, label: string, value: string) => {
   await page.getByRole('spinbutton', { name: label, exact: true }).fill(value);
   await page.getByRole('spinbutton', { name: label, exact: true }).press('Enter');
 };
 
-test('renders a real 3D scene and edits, saves, undoes, and exchanges configurations', async ({ page }) => {
+test('renders a real 3D scene and edits, saves, undoes, and exchanges configurations', async ({
+  page,
+}) => {
   const errors: string[] = [];
   const external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
-  page.on('request', (request) => { if (!request.url().startsWith('http://127.0.0.1:4400')) external.push(request.url()); });
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  page.on('request', (request) => {
+    if (!request.url().startsWith('http://127.0.0.1:4400')) external.push(request.url());
+  });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'A space to make your own.' })).toBeVisible();
   const canvas = page.locator('canvas');
@@ -32,9 +39,15 @@ test('renders a real 3D scene and edits, saves, undoes, and exchanges configurat
   expect((await saved(page)).room.floorFinish).toBe('walnut');
 
   await page.getByRole('button', { name: 'Show roof', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Cutaway walls', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.getByRole('button', { name: 'Cutaway walls', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'false',
+  );
   await page.getByRole('button', { name: 'Cutaway walls', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Show roof', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.getByRole('button', { name: 'Show roof', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'false',
+  );
   await page.getByRole('button', { name: 'Top', exact: true }).click();
   await page.waitForTimeout(350);
   expect((await canvas.screenshot()).equals(originalRender)).toBe(false);
@@ -48,7 +61,12 @@ test('renders a real 3D scene and edits, saves, undoes, and exchanges configurat
   await page.getByRole('button', { name: 'Rotate object 90 degrees' }).click();
   await page.getByRole('button', { name: 'Object colour terracotta', exact: true }).click();
   const bed = (await saved(page)).furniture.at(-1);
-  expect(bed).toMatchObject({ position: [1.25, 0.5], rotation: 90, color: '#b66c50', size: { width: 2 } });
+  expect(bed).toMatchObject({
+    position: [1.25, 0.5],
+    rotation: 90,
+    color: '#b66c50',
+    size: { width: 2 },
+  });
 
   await page.getByRole('button', { name: 'Duplicate', exact: true }).click();
   expect((await saved(page)).furniture).toHaveLength(8);
@@ -68,18 +86,28 @@ test('renders a real 3D scene and edits, saves, undoes, and exchanges configurat
   expect(await saved(page)).toEqual(expected);
   await page.getByRole('button', { name: 'Reset space', exact: true }).click();
   expect((await saved(page)).furniture).toHaveLength(6);
-  await page.getByLabel('Import scene file').setInputFiles({ name: 'saved.forma.json', mimeType: 'application/json', buffer: Buffer.from(exported) });
+  await page.getByLabel('Import scene file').setInputFiles({
+    name: 'saved.forma.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(exported),
+  });
   await expect(page.locator('.toast[role="status"]')).toContainText('Your scene is ready');
   expect(await saved(page)).toEqual(expected);
 
-  await page.getByLabel('Import scene file').setInputFiles({ name: 'invalid.json', mimeType: 'application/json', buffer: Buffer.from('{"version":2}') });
+  await page.getByLabel('Import scene file').setInputFiles({
+    name: 'invalid.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from('{"version":2}'),
+  });
   await expect(page.getByRole('alert')).toContainText('not a valid Forma Studio scene');
   expect(await saved(page)).toEqual(expected);
   expect(errors).toEqual([]);
   expect(external).toEqual([]);
 });
 
-test('keeps controls usable on a narrow viewport and supports canceling edits', async ({ page }) => {
+test('keeps controls usable on a narrow viewport and supports canceling edits', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.locator('canvas')).toBeVisible();
