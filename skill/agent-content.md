@@ -4,13 +4,13 @@ Use this skill when a website needs an interactive 3D preview of a house, room, 
 
 ## Working example
 
-- Source: [Forma Studio](https://github.com/Egormity/forma-studio), using the `feature/codex/forma-studio/2026-10-27` template branch. Repository access may require authentication.
+- Source: [Forma Studio](https://github.com/Egormity/forma-studio), a public template maintained on `main`.
 - The public production preview link will be added later. Until then, use the source repository as the working reference; do not present the authenticated project page as a public preview.
 - Amazi project: [Forma Studio project](https://app.amazi.pro/projects/1ecb3d86-b1cb-4513-ba8d-cbee2d9794c1). This is the project management page, not the public scene preview.
 
 Study the example's behavior and reusable boundaries; adapt its subject, layout, visual style, and object limits to the current task. The desktop launcher and Python server belong to that example's local packaging. An Amazi website should use its existing web build and deployment.
 
-Read [architecture](https://github.com/Egormity/forma-studio/blob/feature/codex/forma-studio/2026-10-27/docs/architecture.md), [extension guidance](https://github.com/Egormity/forma-studio/blob/feature/codex/forma-studio/2026-10-27/docs/extending.md) and [Amazi setup](https://github.com/Egormity/forma-studio/blob/feature/codex/forma-studio/2026-10-27/docs/amazi.md) as needed.
+Read [architecture](https://github.com/Egormity/forma-studio/blob/main/docs/architecture.md), [extension guidance](https://github.com/Egormity/forma-studio/blob/main/docs/extending.md) and [Amazi setup](https://github.com/Egormity/forma-studio/blob/main/docs/amazi.md) as needed.
 
 Useful source paths: `src/scene/Viewport.tsx`, `SceneCamera.tsx`, `MoveControls.tsx`, `FurnitureObject.tsx`, `Floor.tsx`; `src/domain/scene.ts` and `serialization.ts`; `src/state/useStudio.ts`; and `e2e/interaction.spec.ts`. Forma demonstrates procedural geometry, room boundaries, undo/redo, local persistence, and JSON exchange. It does not implement furniture collision detection, CAD editing, or structural calculations.
 

@@ -4,7 +4,7 @@ This repository is one React/Vite application at its root: `package.json`, `Dock
 
 When the repository is the complete project workspace, register this application with source path `.`. When importing into an existing project, create an empty application and copy these files into the source path Amazi allocates; do not replace the project workspace root or another application's files. Connecting GitHub synchronizes the workspace tree and does not discover or register applications automatically. Preserve the registered source path when synchronizing later changes.
 
-Forma's repository already has a `main` branch. Keep an existing Amazi connection, or import the source into a new application's allocated directory. Amazi's initial GitHub connection flow requires a repository without `main`; source compatibility does not change that connection requirement.
+Forma's public template uses `main` as its default branch. Keep an existing Amazi connection, or import the source from `main` into a new application's allocated directory. Amazi's initial GitHub connection flow requires a repository without `main`; use a separate repository for a new synchronization connection. Source compatibility does not change that connection requirement.
 
 Configure the application with:
 

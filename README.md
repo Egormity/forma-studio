@@ -2,6 +2,8 @@
 
 A local, interactive 3D house and furniture studio. Explore a furnished space, change its dimensions and finishes, and arrange furniture directly in the scene.
 
+The public template is maintained on `main` in [Egormity/forma-studio](https://github.com/Egormity/forma-studio).
+
 This is a parametric visual demonstration for exploring the experience of a construction or furniture configurator. Measurements and geometry are illustrative; it is not a CAD, structural-engineering, or construction-documentation tool.
 
 ## Open the app
