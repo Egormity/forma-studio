@@ -1,0 +1,142 @@
+@media (max-width: 1250px) and (min-width: 1051px) {
+  .panel-heading {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .panel-body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .color-options {
+    gap: 6px;
+  }
+  .color-swatch {
+    width: 18px;
+    height: 18px;
+  }
+  .object-position-actions .button {
+    padding: 6px;
+    gap: 4px;
+    font-size: 10px;
+  }
+  .panel-tabs {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+@media (max-width: 1050px) and (min-width: 701px) {
+  .selected-summary {
+    flex-direction: row;
+    gap: 15px;
+    text-align: left;
+    padding: 0 0 17px;
+  }
+  .selected-preview {
+    width: 68px;
+    height: 72px;
+    flex-shrink: 0;
+    margin: 0;
+  }
+  .selected-preview::after {
+    top: 57px;
+  }
+  .selected-summary h3 {
+    font-size: 13px;
+  }
+  .selected-summary .eyebrow {
+    font-size: 5px;
+  }
+  .selected-summary .object-subtitle {
+    line-height: 1.7;
+  }
+}
+@media (max-width: 700px) {
+  .panel-heading {
+    padding: 20px 20px 17px;
+  }
+  .panel-body {
+    padding: 0 20px 20px;
+  }
+  .panel-tabs {
+    margin: 0 20px 20px;
+  }
+  .section-label h3 {
+    font-size: 13px;
+  }
+  .section-label > span {
+    font-size: 11px;
+  }
+  .number-field > span:first-child,
+  .name-field > span {
+    font-size: 12px;
+  }
+  .number-input-wrap input {
+    height: 39px;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+  .input-unit {
+    font-size: 12px;
+    top: 13px;
+    right: 11px;
+  }
+  .finish-options {
+    flex-direction: row;
+  }
+  .finish-option {
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+    gap: 8px;
+  }
+  .finish-swatch {
+    width: 30px;
+    height: 30px;
+  }
+  .floor-option {
+    font-size: 12px;
+  }
+  .wood-swatch {
+    height: 55px;
+  }
+  .furnish-link strong {
+    font-size: 13px;
+  }
+  .furnish-link small {
+    font-size: 12px;
+  }
+  .catalog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .catalog-card > strong {
+    font-size: 12px;
+  }
+  .catalog-card > span:last-child {
+    font-size: 12px;
+  }
+  .panel-hint {
+    font-size: 13px;
+  }
+  .selected-preview {
+    height: 95px;
+  }
+  .object-subtitle {
+    font-size: 12px;
+  }
+  .name-field input {
+    height: 39px;
+    font-size: 13px;
+  }
+  .color-swatch {
+    height: 28px;
+    width: 28px;
+  }
+  .color-options {
+    gap: 13px;
+  }
+  .object-position-actions .button,
+  .object-actions .button {
+    font-size: 12px;
+    min-height: 38px;
+  }
+}
