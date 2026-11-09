@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, CircleHelp, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useStudio } from './state/useStudio';
 import { Viewport } from './scene/Viewport';
 import { StudioHeader } from './components/StudioHeader';
 import { DesignPanel } from './components/DesignPanel';
 import { Inspector } from './components/Inspector';
 import { ViewportControls } from './components/ViewportControls';
+import { StudioFooter } from './components/StudioFooter';
 import { IconButton } from './components/Controls';
 
 export const App = () => {
   const studio = useStudio();
   const fileInput = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<{ message: string; error?: boolean } | null>(null);
-  const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     if (!toast) return;
@@ -58,37 +58,6 @@ export const App = () => {
         }}
       />
       <main id="workspace" className="studio-main">
-        <div className="workspace-intro">
-          <div>
-            <span className="eyebrow intro-eyebrow">A LITTLE ROOM FOR POSSIBILITY</span>
-            <h1>
-              A space to make your own<span>.</span>
-            </h1>
-            <p>Shape a room. Find your pieces. See it all come together.</p>
-          </div>
-          <button
-            type="button"
-            className="help-button"
-            aria-expanded={showHelp}
-            aria-controls="studio-help"
-            onClick={() => setShowHelp(!showHelp)}
-          >
-            <CircleHelp size={16} />A quick look around
-            <ArrowUpRight size={14} />
-          </button>
-        </div>
-        {showHelp && (
-          <div className="help-panel" id="studio-help">
-            <p>
-              <strong>Make yourself at home.</strong> Drag an empty area to orbit, scroll or pinch
-              to zoom, and right-drag to pan. Select furniture to edit it. Turn on Move to drag its
-              arrows along the floor. Try Top view for a precise layout.
-            </p>
-            <IconButton label="Close help" onClick={() => setShowHelp(false)}>
-              <X size={16} />
-            </IconButton>
-          </div>
-        )}
         <div className="workspace-grid">
           <DesignPanel
             studio={studio}
@@ -107,19 +76,10 @@ export const App = () => {
                 onMove={studio.moveItem}
               />
               <ViewportControls studio={studio} />
-              <div className="scene-caption">
-                <span>THE COURTYARD COLLECTION</span>
-                <strong>
-                  Good spaces start
-                  <br />
-                  with a little curiosity.
-                </strong>
-              </div>
             </div>
             <div className="viewport-status">
-              <span className="scene-object-count">
-                <span className="tiny-dot" />
-                {studio.scene.furniture.length} objects<span className="status-divider">/</span>
+              <span className="scene-summary">
+                {studio.scene.furniture.length} pieces ·{' '}
                 {(studio.scene.room.width * studio.scene.room.depth).toFixed(1)} m²
               </span>
               <span className="viewport-hint">
@@ -127,17 +87,11 @@ export const App = () => {
                   ? 'Drag the arrows to move your selection'
                   : 'Drag to orbit · Scroll to zoom · Click to select'}
               </span>
-              <span className="units-badge">METRIC</span>
             </div>
           </section>
           <Inspector studio={studio} />
         </div>
-        <footer className="studio-footer">
-          <span>Built for the way you imagine.</span>
-          <span>
-            FORMA STUDIO<span className="footer-dot">·</span>Your space, your perspective.
-          </span>
-        </footer>
+        <StudioFooter studio={studio} />
       </main>
       {toast && (
         <div

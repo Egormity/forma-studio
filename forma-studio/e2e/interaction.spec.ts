@@ -31,10 +31,10 @@ test('selects and drags furniture on the canvas, restores boundary drops, and st
   // Screen coordinates select the starter sofa in the fixed 1600×1060 top view.
   await page.keyboard.press('Escape');
   await page.waitForTimeout(150);
-  await page.mouse.click(point(343, 325).x, point(343, 325).y);
+  await page.mouse.click(point(309, 404).x, point(309, 404).y);
   await expect(page.getByRole('textbox', { name: 'Object name' })).toHaveValue('Sofa');
   await page.getByRole('button', { name: 'Move selected object', exact: true }).click();
-  const arrow = point(414, 325);
+  const arrow = point(379, 404);
   await page.mouse.move(arrow.x, arrow.y);
   await page.mouse.down();
   await page.mouse.move(arrow.x + 80, arrow.y, { steps: 12 });
@@ -51,7 +51,7 @@ test('selects and drags furniture on the canvas, restores boundary drops, and st
   await page.mouse.move(20, 100);
   await page.waitForTimeout(200);
   const atBoundary = await canvas.screenshot();
-  const edgeArrow = point(689, 325);
+  const edgeArrow = point(654, 404);
   await page.mouse.move(edgeArrow.x, edgeArrow.y);
   await page.mouse.down();
   await page.mouse.move(edgeArrow.x + 100, edgeArrow.y, { steps: 12 });

@@ -1,10 +1,52 @@
 import { useState } from 'react';
-import { ArrowUpRight, Check, RotateCcw, Shapes, SquareDashed } from 'lucide-react';
+import { Check, Plus, RotateCcw, Shapes, SquareDashed } from 'lucide-react';
 import { FLOOR_FINISHES, WALL_FINISHES } from '../domain/catalog';
 import { MAX_ITEMS } from '../domain/scene';
 import { NumberField, SectionLabel } from './Controls';
 import { FurnitureLibrary } from './FurnitureLibrary';
 import type { StudioModel } from './studio-model';
+
+interface FinishOptionsProps<T extends string> {
+  label: string;
+  options: readonly { id: T; name: string; color: string }[];
+  value: T;
+  variant: 'wall' | 'floor';
+  onChange: (value: T) => void;
+}
+
+const FinishOptions = <T extends string>({
+  label,
+  options,
+  value,
+  variant,
+  onChange,
+}: FinishOptionsProps<T>) => (
+  <section className="panel-section">
+    <SectionLabel>{label}</SectionLabel>
+    <div className="swatch-grid">
+      {options.map((option) => {
+        const selected = option.id === value;
+        return (
+          <button
+            type="button"
+            key={option.id}
+            className={`swatch-option ${selected ? 'is-selected' : ''}`}
+            aria-pressed={selected}
+            onClick={() => onChange(option.id)}
+          >
+            <span
+              className={`swatch-chip swatch-chip-${variant}`}
+              style={{ backgroundColor: option.color }}
+            >
+              {selected && <Check size={18} strokeWidth={3} />}
+            </span>
+            <span className="swatch-name">{option.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  </section>
+);
 
 export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset: () => void }) => {
   const [tab, setTab] = useState<'space' | 'furniture'>('space');
@@ -12,10 +54,6 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
 
   return (
     <aside className="panel design-panel" aria-label="Design library">
-      <div className="panel-heading">
-        <span className="eyebrow">MAKE IT YOURS</span>
-        <h2>Design library</h2>
-      </div>
       <div className="panel-tabs" role="tablist" aria-label="Design tools">
         <button
           type="button"
@@ -25,7 +63,7 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
           id="space-tab"
           onClick={() => setTab('space')}
         >
-          <SquareDashed size={15} />
+          <SquareDashed size={16} />
           Space
         </button>
         <button
@@ -36,7 +74,7 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
           id="furniture-tab"
           onClick={() => setTab('furniture')}
         >
-          <Shapes size={15} />
+          <Shapes size={16} />
           Furniture
         </button>
       </div>
@@ -44,16 +82,9 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
         {tab === 'space' ? (
           <div id="space-panel" role="tabpanel" aria-labelledby="space-tab">
             <section className="panel-section">
-              <SectionLabel aside="METRES">Room dimensions</SectionLabel>
-              <div className="room-diagram" aria-hidden="true">
-                <div className="room-diagram-inner">
-                  <span>
-                    {room.width.toFixed(1)} × {room.depth.toFixed(1)}
-                  </span>
-                  <small>{(room.width * room.depth).toFixed(1)} m²</small>
-                </div>
-                <span className="diagram-north">N ↑</span>
-              </div>
+              <SectionLabel aside={`${(room.width * room.depth).toFixed(1)} m²`}>
+                Room size
+              </SectionLabel>
               <div className="fields-three">
                 <NumberField
                   label="Width"
@@ -81,50 +112,27 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
                 />
               </div>
             </section>
-            <section className="panel-section">
-              <SectionLabel>Wall finish</SectionLabel>
-              <div className="finish-options">
-                {WALL_FINISHES.map((finish) => (
-                  <button
-                    type="button"
-                    key={finish.id}
-                    className={`finish-option ${room.wallFinish === finish.id ? 'is-selected' : ''}`}
-                    onClick={() => studio.updateRoom({ wallFinish: finish.id })}
-                    aria-pressed={room.wallFinish === finish.id}
-                  >
-                    <span className="finish-swatch" style={{ backgroundColor: finish.color }}>
-                      {room.wallFinish === finish.id && <Check size={14} />}
-                    </span>
-                    <span>{finish.name}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-            <section className="panel-section">
-              <SectionLabel>Floor finish</SectionLabel>
-              <div className="floor-options">
-                {FLOOR_FINISHES.map((finish) => (
-                  <button
-                    type="button"
-                    key={finish.id}
-                    className={`floor-option ${room.floorFinish === finish.id ? 'is-selected' : ''}`}
-                    onClick={() => studio.updateRoom({ floorFinish: finish.id })}
-                    aria-pressed={room.floorFinish === finish.id}
-                  >
-                    <span className="wood-swatch" style={{ backgroundColor: finish.color }}>
-                      {room.floorFinish === finish.id && <Check size={14} />}
-                    </span>
-                    <span>{finish.name}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-            <button type="button" className="furnish-link" onClick={() => setTab('furniture')}>
-              <span>
-                <strong>Bring your space to life</strong>
-                <small>Explore the furniture collection</small>
-              </span>
-              <ArrowUpRight size={18} />
+            <FinishOptions
+              label="Walls"
+              options={WALL_FINISHES}
+              value={room.wallFinish}
+              variant="wall"
+              onChange={(wallFinish) => studio.updateRoom({ wallFinish })}
+            />
+            <FinishOptions
+              label="Floor"
+              options={FLOOR_FINISHES}
+              value={room.floorFinish}
+              variant="floor"
+              onChange={(floorFinish) => studio.updateRoom({ floorFinish })}
+            />
+            <button
+              type="button"
+              className="button button-dark button-block"
+              onClick={() => setTab('furniture')}
+            >
+              <Plus size={16} />
+              Add furniture
             </button>
           </div>
         ) : (
@@ -138,10 +146,9 @@ export const DesignPanel = ({ studio, onReset }: { studio: StudioModel; onReset:
       </div>
       <div className="panel-footer">
         <button className="text-button" type="button" onClick={onReset}>
-          <RotateCcw size={13} />
+          <RotateCcw size={15} />
           Reset space
         </button>
-        <span>1 m = 1 metre</span>
       </div>
     </aside>
   );

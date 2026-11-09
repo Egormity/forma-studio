@@ -3,7 +3,6 @@ import type { LucideIcon } from 'lucide-react';
 import { FURNITURE_CATALOG } from '../domain/catalog';
 import { MAX_ITEMS } from '../domain/scene';
 import type { FurnitureKind } from '../domain/types';
-import { SectionLabel } from './Controls';
 
 export const FURNITURE_ICONS: Record<FurnitureKind, LucideIcon> = {
   sofa: Sofa,
@@ -23,11 +22,10 @@ export const FurnitureLibrary = ({
   atLimit: boolean;
 }) => (
   <div className="furniture-library">
-    <SectionLabel aside={`${FURNITURE_CATALOG.length} objects`}>The essentials</SectionLabel>
     <p className="panel-hint">
       {atLimit
-        ? `This space has ${MAX_ITEMS} objects. Remove one to add another.`
-        : 'A few good pieces. Endless possibilities.'}
+        ? `You've reached ${MAX_ITEMS} pieces. Remove one to add another.`
+        : 'Pick a piece to add it to your room.'}
     </p>
     <div className="catalog-grid">
       {FURNITURE_CATALOG.map((item) => {
@@ -42,20 +40,17 @@ export const FurnitureLibrary = ({
             aria-label={`Add ${item.name.toLowerCase()}`}
           >
             <span className="catalog-illustration" style={{ color: item.color }}>
-              <Icon size={36} strokeWidth={1.25} />
-              <Plus size={13} className="catalog-add" />
+              <Icon size={42} strokeWidth={1.35} />
             </span>
-            <strong>{item.name}</strong>
-            <span>
-              {item.size.width} × {item.size.depth} m
+            <span className="catalog-card-footer">
+              <strong>{item.name}</strong>
+              <span className="catalog-add" aria-hidden="true">
+                <Plus size={15} />
+              </span>
             </span>
           </button>
         );
       })}
-    </div>
-    <div className="library-note">
-      <Sprout size={15} />
-      <span>Every piece is editable. Choose a finish, resize it, and find its place.</span>
     </div>
   </div>
 );

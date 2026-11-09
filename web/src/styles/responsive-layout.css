@@ -1,119 +1,108 @@
-@media (min-width: 1600px) {
+@media (min-width: 1500px) {
+  .studio-main {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
   .workspace-grid {
-    grid-template-columns: 265px minmax(300px, 1fr) 275px;
+    grid-template-columns: 300px minmax(340px, 1fr) 320px;
     gap: 22px;
   }
-  .studio-main {
-    padding-left: 45px;
-    padding-right: 45px;
-  }
 }
-@media (max-width: 1250px) {
-  .studio-header {
-    padding: 0 24px;
-    gap: 20px;
-    height: 72px;
-  }
-  .project-type {
-    display: none;
-  }
+@media (max-width: 1280px) {
   .studio-main {
-    padding: 28px 23px 0;
+    padding: 20px 24px;
   }
   .workspace-grid {
-    grid-template-columns: 218px minmax(280px, 1fr) 224px;
-    gap: 13px;
-    min-height: 650px;
+    grid-template-columns: 250px minmax(300px, 1fr) 272px;
+    gap: 16px;
+    height: calc(100dvh - 112px);
   }
-  .viewport-hint {
-    display: none;
-  }
-  .camera-controls button {
-    padding: 7px 8px;
-    font-size: 12px;
-  }
-  .live-badge {
-    display: none;
-  }
-  .scene-caption {
-    left: 22px;
-  }
-}
-@media (max-width: 1050px) {
   .save-status {
     display: none;
   }
-  .header-actions {
-    margin-left: auto;
-  }
-  .workspace-grid {
-    height: auto;
-    max-height: none;
-    grid-template-columns: 235px minmax(300px, 1fr);
-  }
-  .design-panel {
-    grid-column: 1;
-    grid-row: 1;
-    min-height: 650px;
-  }
-  .viewport-panel {
-    grid-column: 2;
-    grid-row: 1;
-    min-height: 650px;
-  }
-  .inspector-panel {
-    grid-column: 1 / -1;
-  }
-  .inspector-body {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 24px;
-  }
-  .inspector-body .selected-summary {
-    grid-column: 1;
-  }
-  .inspector-body .panel-section {
-    margin: 0 0 18px;
-    padding: 0;
-    border: 0;
-  }
-  .inspector-body .object-actions {
-    align-self: start;
-    margin-top: 0;
-  }
-  .inspector-note {
-    display: none !important;
-  }
-  .inspector-panel .panel-heading {
-    padding-bottom: 15px;
-  }
-  .empty-inspector {
-    min-height: 200px !important;
-  }
 }
-@media (max-width: 700px) {
-  .studio-header {
-    padding: 0 17px;
-    height: 66px;
-    gap: 15px;
-  }
-  .brand-symbol {
-    transform: scale(0.85);
-    transform-origin: left center;
-    margin-right: -3px;
-  }
-  .brand-name {
-    font-size: 15px;
-  }
-  .brand-name > span {
-    font-size: 5px;
-  }
+@media (max-width: 1060px) {
   .header-divider,
   .project-name {
     display: none;
   }
+  .studio-main {
+    padding: 18px 20px;
+  }
+  .workspace-grid {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 16px;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .design-panel {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 640px;
+  }
+  .viewport-panel {
+    grid-column: 2;
+    grid-row: 1;
+    height: calc(100dvh - 112px);
+    min-height: 640px;
+  }
+  .inspector-panel {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .inspector-body {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 24px;
+    align-items: start;
+    padding-top: 16px;
+  }
+  .selected-summary,
+  .object-actions {
+    grid-column: 1 / -1;
+  }
+  .inspector-body .panel-section {
+    margin-bottom: 0;
+  }
+  .object-actions {
+    margin-top: 8px;
+  }
+  .empty-inspector {
+    min-height: 220px;
+  }
+  .studio-footer {
+    padding: 40px 36px 22px;
+  }
+}
+@media (max-width: 780px) {
+  .studio-header {
+    height: 64px;
+    padding: 0 16px;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 19px;
+  }
+  .brand-name {
+    font-size: 15px;
+  }
   .header-actions {
-    gap: 3px;
+    gap: 4px;
+  }
+  .history-actions {
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .header-actions .button {
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 9px;
+    font-size: 12.5px;
   }
   .header-actions .button-label-desktop {
     display: none;
@@ -121,60 +110,20 @@
   .header-actions .button-label-mobile {
     display: inline;
   }
-  .header-actions .button {
-    padding: 8px;
-    font-size: 12px;
-    gap: 6px;
-  }
-  .history-actions {
-    padding-right: 6px;
-    gap: 0;
-    margin-right: 3px;
-  }
-  .history-actions .icon-button {
-    width: 27px;
-  }
   .studio-main {
-    padding: 26px 15px 0;
-  }
-  .workspace-intro {
-    padding-bottom: 23px;
-    align-items: start;
-  }
-  .workspace-intro h1 {
-    font-size: 28px;
-    max-width: 290px;
-  }
-  .workspace-intro p {
-    max-width: 230px;
-    font-size: 12px;
-  }
-  .help-button {
-    font-size: 0;
-    margin-top: 28px;
-    padding: 8px;
-    border: 1px solid #e3e6da;
-    border-radius: 50%;
-    width: 33px;
-    height: 33px;
-  }
-  .help-button svg {
-    flex-shrink: 0;
-  }
-  .help-button svg:last-child {
-    display: none;
+    padding: 14px 14px 18px;
   }
   .workspace-grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
   .viewport-panel {
     order: -1;
-    min-height: 480px;
-    height: 65dvh;
-    max-height: 650px;
     flex: none;
+    height: 58dvh;
+    min-height: 400px;
+    max-height: 600px;
   }
   .design-panel {
     min-height: auto;
@@ -182,38 +131,89 @@
   .panel-body {
     overflow: visible;
   }
-  .design-panel .panel-body {
-    display: block;
-  }
-  .design-panel .room-diagram {
-    height: 115px;
-  }
-  .design-panel .floor-options {
-    grid-template-columns: repeat(3, 1fr);
-  }
   .inspector-body {
     display: block;
+    padding-top: 0;
   }
   .inspector-body .panel-section {
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  .viewport-topbar {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+  .camera-controls button {
+    height: 34px;
+    padding: 0 11px;
+    gap: 6px;
+    font-size: 12.5px;
+  }
+  .viewport-toolbar {
+    bottom: 12px;
+    gap: 2px;
+    padding: 4px;
+    max-width: calc(100% - 20px);
+  }
+  .tool-toggle {
+    height: 34px;
+    padding: 0 10px;
+  }
+  .tool-toggle span {
+    display: none;
+  }
+  .viewport-status {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 12px;
+  }
+  .viewport-hint {
+    display: none;
   }
   .studio-footer {
-    gap: 20px;
-    font-size: 11px;
+    margin-top: 16px;
+    padding: 28px 22px 18px;
+    border-radius: 16px;
   }
-  .studio-footer > span:last-child {
-    text-align: right;
-    max-width: 150px;
+  .workspace-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .workspace-intro h1 {
+    font-size: 38px;
+    letter-spacing: -1.2px;
+  }
+  .workspace-intro p {
+    margin-top: 10px;
+    font-size: 13.5px;
+  }
+  .help-button {
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 12.5px;
+  }
+  .help-panel {
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 13px;
+  }
+  .footer-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 26px;
+    padding-top: 16px;
+    font-size: 11.5px;
     line-height: 1.6;
   }
-  .scene-caption > strong {
-    font-size: 16px;
+  .footer-dot {
+    padding: 0 7px;
   }
-  .scene-caption {
-    top: 81px;
-  }
-  .compass {
+}
+@media (max-width: 480px) {
+  .brand-name {
     display: none;
   }
 }
